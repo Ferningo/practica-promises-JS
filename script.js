@@ -3,6 +3,9 @@ const lastNameColumn = document.getElementsByClassName("last-name");
 const emailColumn = document.getElementsByClassName("email");
 const avatarColumn = document.getElementsByClassName("avatar");
 
+let timeToLive = parseInt(prompt("Tiempo de vida en segundos")) * 1000;
+let myDate = new Date().getTime();
+
 const populateTable = () =>
   fetch("https://reqres.in/api/users?delay=1").then((res) =>
     res.json().then((data) => {
@@ -16,3 +19,12 @@ const populateTable = () =>
       }
     })
   );
+
+//Returns wether or not the time to live timer has expired.
+const enoughTimePassed = () => {
+  const currentTime = new Date().getTime();
+  if (currentTime >= myDate.getTime() + timeToLive) {
+    return true;
+  }
+  return false;
+};
